@@ -3,7 +3,6 @@
  */
 package com.flatironschool.javacs;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -23,12 +22,13 @@ public class MyHashMap<K, V> extends MyBetterMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V put(K key, V value) {
+		MyLinearMap<K, V> map = chooseMap(key);
 		V oldValue = super.put(key, value);
 		
 		//System.out.println("Put " + key + " in " + map + " size now " + map.size());
 		
 		// check if the number of elements per map exceeds the threshold
-		if (size() > maps.size() * FACTOR) {
+		if (map.size() > maps.size() * FACTOR) {
 			rehash();
 		}
 		return oldValue;
